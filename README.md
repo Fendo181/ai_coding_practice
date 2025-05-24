@@ -1,0 +1,2 @@
+# ai_coding_practice
+AIコーディングに関する練習場です
