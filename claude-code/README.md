@@ -1,8 +1,10 @@
+#　 手を動かしながらClaude Codeを使って見る。
+
 ## はじめに
 
 ClaudeCodeを使うにあたって、自分用にセットアップ方法をまとめます。
 注意として、この記事は`2025/06/17`時点の情報を参考にして執筆しています。
-ここに書いている内容がアップデートされている可能性がある為、更新の最新の記事を参考にしてください。
+ここに書いている内容がアップデートされている可能性がある為、公式の最新の記事を参考にしてください。
 
 実行環境について以下に乗せておきます。
 
@@ -202,10 +204,115 @@ echo fizzbuzz(15); // Output: 1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, f
 
 ![image4](img/image4.png)
 
-### 参考
 
-- [Claude Code 概要 - Anthropic](https://docs.anthropic.com/ja/docs/claude-code/overview)
-- [Claude Codeを徹底解説してみた（前編） | DevelopersIO](https://dev.classmethod.jp/articles/get-started-claude-code-1/)
-- [Claude Codeを徹底解説してみた（後編） | DevelopersIO](https://dev.classmethod.jp/articles/get-started-claude-code-2nd/)
-- [Claude Code の settings.json は設定した方がいい - じゃあ、おうちで学べる](https://syu-m-5151.hatenablog.com/entry/2025/06/05/134147)
-- [Claude Code の CLAUDE.mdは設定した方がいい - じゃあ、おうちで学べる](https://syu-m-5151.hatenablog.com/entry/2025/06/06/190847)
+こんな感じでclaudeに依頼を出すことで、CLI上でコードのリファクタリングや修正を行うことができます。
+
+## モードの切り替え
+
+Claude Codeには、いくつかのモードが用意されています。
+モードを切り替えることで、特定のタスクに最適化された動作をさせることができます。
+モードの切り替えは、以下のコマンドで行います。
+
+- `shift + tab`(1回目): `auto-accept edits on`が有効になる
+  - コードの変更を自動的に受け入れるモードで、デフォルトに加えてファイルの作成や変更等が許可されている状態となります。
+- `shift + tab`(2回目): `plan mode on`が有効になる
+  - このモードでは、コードの変更を提案する前に、ファイルの作成や変更前に事前に計画を考えてくれるモードです。
+
+
+実際に`plan mode on`で以下のような命令を行った際の結果をみてみます。
+
+```bash
+fizz buzzの部分で共通化できる箇所は定数に置き換えてください
+```
+
+claude codeのレスポンス
+
+```bash
+ Ready to code?                                               │
+│                                                              │
+│ Here is Claude's plan:                                       │
+│ ╭──────────────────────────────────────────────────────────╮ │
+│ │ FizzBuzz定数化リファクタリング計画                       │ │
+│ │                                                          │ │
+│ │ 現在のコードで定数化できる部分：                         │ │
+│ │                                                          │ │
+│ │ 1. 数値の定数化                                          │ │
+│ │   - 3 → FIZZ_DIVISOR                                     │ │
+│ │   - 5 → BUZZ_DIVISOR                                     │ │
+│ │   - 15 → FIZZBUZZ_DIVISOR (3と5の最小公倍数)             │ │
+│ │ 2. 文字列の定数化                                        │ │
+│ │   - "fizz" → FIZZ_TEXT                                   │ │
+│ │   - "buzz" → BUZZ_TEXT                                   │ │
+│ │   - "fizzbuzz" → FIZZBUZZ_TEXT                           │ │
+│ │ 3. 区切り文字の定数化                                    │ │
+│ │   - ", " → DELIMITER                                     │ │
+│ │                                                          │ │
+│ │ 変更内容：                                               │ │
+│ │ - ファイル上部に定数定義を追加                           │ │
+│ │ - switch文の条件とテキストを定数に置き換え               │ │
+│ │ - implode関数の区切り文字を定数に置き換え                │ │
+│ ╰──────────────────────────────────────────────────────────╯ │
+│                                                              │
+│ Would you like to proceed?                                   │
+│                                                              │
+│ ❯ 1. Yes                                                     │
+│   2. No, keep planning                                       │
+│                                                              │
+```
+
+
+こんな感じで提案してくれるので、「Yes」を選択するとコードが以下のように変更されました。
+
+```php
+<?php
+
+// FizzBuzz constants
+const FIZZ_DIVISOR = 3;
+const BUZZ_DIVISOR = 5;
+const FIZZBUZZ_DIVISOR = 15;
+const FIZZ_TEXT = "fizz";
+const BUZZ_TEXT = "buzz";
+const FIZZBUZZ_TEXT = "fizzbuzz";
+const DELIMITER = ", ";
+
+// fizzbuzz function
+function fizzbuzz($n) {
+    $result = [];
+    for ($i = 1; $i <= $n; $i++) {
+        switch (true) {
+            case ($i % FIZZBUZZ_DIVISOR == 0):
+                $result[] = FIZZBUZZ_TEXT;
+                break;
+            case ($i % FIZZ_DIVISOR == 0):
+                $result[] = FIZZ_TEXT;
+                break;
+            case ($i % BUZZ_DIVISOR == 0):
+                $result[] = BUZZ_TEXT;
+                break;
+            default:
+                $result[] = $i;
+                break;
+        }
+    }
+    return implode(DELIMITER, $result);
+}
+
+// Example usage
+echo fizzbuzz(15); // Output: 1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, fizz, 13, 14, fizzbuzz
+```
+
+このように、`plan mode on`を使うことで、コードの変更内容を事前に確認することができるので、安心してコードの変更を行うことができますし、意図しない変更を防ぐことができます。
+
+## ClaudeCodeの独自ルールを用意する。
+
+Claude Codeでは、独自のルールを設定することができます。
+これにより、特定のプロジェクトやチームのコーディングスタイルに合わせたコード生成やリファクタリングが可能になります。
+これは `Manage Claude's memory`という機能を使います。
+
+現時点で設定ができるファイルは3つあります。
+
+
+
+
+ref: https://docs.anthropic.com/en/docs/claude-code/memory
+
