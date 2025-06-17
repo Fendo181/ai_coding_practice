@@ -1,193 +1,101 @@
-# AI Coding Practice - Claude Configuration
+# CLAUDE.md
 
-## Project Overview
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This is a learning and practice repository focused on AI-assisted coding tools, specifically Claude Code and Model Context Protocol (MCP). The project serves as a hands-on exploration of modern AI development tools and techniques.
+## プロジェクト概要
 
-### Project Type and Tech Stack
+このリポジトリは、AIコーディングツールの学習と実践を目的とした教育用プロジェクトです。主にClaude CodeとModel Context Protocol（MCP）の習得に焦点を当てています。
 
-- **Primary Purpose**: Educational repository for AI coding practice
-- **Main Technologies**: PHP (sample code), Documentation (Markdown)
-- **AI Tools**: Claude Code, MCP exploration
-- **Version Control**: Git (currently on branch `init/claude-code`)
-- **Environment**: macOS-focused development setup
+## 基本的なコマンド
 
-## Directory Structure
+### Claude Code操作
+```bash
+# Claude Codeの対話モードを開始
+claude
 
-```
-/Users/endofutoshi/src/github.com/Fendo181/ai_coding_practice/
-├── README.md                    # Main project documentation
-├── .gitignore                   # Git ignore rules (macOS-specific)
-├── claude-code/                 # Claude Code learning materials
-│   ├── README.md               # Comprehensive Claude Code setup guide
-│   ├── img/                    # Documentation screenshots
-│   │   ├── image1.png          # Setup screenshots
-│   │   ├── image2.png
-│   │   ├── image3.png
-│   │   └── image4.png
-│   └── sample/                 # Code examples
-│       └── hello.php           # FizzBuzz implementation (refactored)
-└── mcp/                        # Model Context Protocol materials
-    ├── README.md               # MCP learning documentation
-    ├── LICENSE                 # License file
-    └── code/                   # MCP code examples
-        └── README.md           # VS Code related notes
+# バージョン確認
+claude-code --version
+
+# 設定初期化
+/init
 ```
 
-## Key Components
+### PHP実行
+```bash
+# サンプルコードの実行
+php claude-code/sample/hello.php
+```
 
-### Claude Code Materials (`/claude-code/`)
-- **Setup Guide**: Comprehensive documentation for Claude Code installation and configuration
-- **Sample Code**: PHP FizzBuzz implementation demonstrating refactoring capabilities
-- **Mode Documentation**: Covers different Claude Code modes (auto-accept, plan mode)
-- **Screenshots**: Visual setup guides for the installation process
+### Git操作
+```bash
+# 現在のブランチ: init/claude-code
+# メインブランチ: main
+git status
+git log --oneline
+```
 
-### MCP Materials (`/mcp/`)
-- **Learning Resources**: Documentation about Model Context Protocol
-- **Code Examples**: Practical implementations and explorations
-- **VS Code Integration**: Notes on IDE integration
+## アーキテクチャ構造
 
-## Development Environment
+### ディレクトリ構成の特徴
+- **`claude-code/`**: Claude Codeの学習教材とサンプルコード
+  - 詳細なセットアップガイド（スクリーンショット付き）
+  - PHPでのFizzBuzz実装例（if文からswitch文への段階的リファクタリング）
+  - 3つのモード（標準、auto-accept、plan mode）の実用例
+- **`mcp/`**: Model Context Protocolの学習教材
+- **学習主導設計**: 実践的な例とビジュアルガイドを重視
 
-### System Requirements
-- **OS**: macOS Sonoma 14.5 (as documented)
+### Claude Codeのモード理解
+1. **標準モード**: 手動承認が必要な基本モード
+2. **Auto-acceptモード** (`shift + tab` 1回): 自動でコード変更を承認
+3. **Plan Mode** (`shift + tab` 2回): 変更前に詳細な実行計画を表示
+
+### コードの品質パターン
+- **段階的リファクタリング**: `hello.php`でif文からswitch文への進化を実演
+- **定数の活用**: `FIZZ_DIVISOR`、`BUZZ_DIVISOR`などの意味のある定数名
+- **関数の責任分離**: 単一責任の原則に従った関数設計
+
+## 開発環境設定
+
+### システム要件（ドキュメント化済み）
+- **OS**: macOS Sonoma 14.5
 - **Node.js**: v22.2.0
 - **npm**: 10.7.0
 - **Claude Code**: v1.0.25
 
-### Setup Commands
+### メモリ管理システム
+Claude Codeの3つのメモリタイプに対応：
+- **Project Memory**: `./CLAUDE.md`（このファイル）
+- **User Memory**: `~/.claude/CLAUDE.md`（個人設定）
+- **Project Memory Local**: `./CLAUDE.local.md`（個人的なプロジェクト設定）
 
-```bash
-# Install Claude Code globally
-npm install -g @anthropic-ai/claude-code
+## 学習目標とコーディング方針
 
-# Launch Claude Code
-claude
+### 教育重視のアプローチ
+- **ドキュメント駆動開発**: 詳細なセットアップガイドとビジュアル教材
+- **実践的サンプル**: 段階的な改善を示すコード例
+- **AIツール統合**: 実際のワークフローでのAI活用方法
 
-# Check version
-claude-code --version
-```
+### セキュリティ考慮事項
+- AIが生成したコードは必ず確認してから実行
+- プロンプトインジェクションリスクのため、信頼できるコードでのみ使用
+- 参考: [Claude Code Security](https://docs.anthropic.com/s/claude-code-security)
 
-## Available Commands
+## 言語・フレームワーク固有の注意点
 
-### Git Operations
-```bash
-# Current branch status
-git status
+### PHP開発
+- モダンなPHP実践（定数の使用、switch文の活用）
+- `php` コマンドでサンプルコードを直接実行可能
+- エラーハンドリングとコードの可読性を重視
 
-# View commit history
-git log --oneline
+### ドキュメント作成
+- 日本語を主言語とした技術文書
+- ステップバイステップのセットアップガイド
+- スクリーンショットを含むビジュアル説明
 
-# Branch management
-git branch -a
-```
+## このプロジェクトでの作業方針
 
-### PHP Development
-```bash
-# Run PHP sample code
-php claude-code/sample/hello.php
-```
-
-## Claude Code Modes
-
-### 1. Standard Mode
-- Default interactive mode
-- Manual approval required for changes
-- Suitable for careful code review
-
-### 2. Auto-Accept Mode (`shift + tab` once)
-- Automatically accepts code changes
-- Enables file creation and modification
-- Use with caution for trusted operations
-
-### 3. Plan Mode (`shift + tab` twice)
-- Shows detailed execution plan before changes
-- Provides structured approach to modifications
-- Recommended for complex refactoring tasks
-
-## Architecture and Patterns
-
-### Learning-Focused Structure
-- **Documentation-First**: Extensive README files with step-by-step guides
-- **Visual Learning**: Screenshots and images for setup processes
-- **Practical Examples**: Real code samples demonstrating concepts
-- **Incremental Learning**: Separate directories for different AI tools
-
-### Code Quality Practices
-- **Refactoring Examples**: Shows evolution from basic to improved code
-- **Constant Usage**: Demonstrates modern PHP practices
-- **Switch Statement Implementation**: Shows alternative control structures
-- **Function Decomposition**: Clear separation of concerns
-
-## Development Guidelines
-
-### Code Style
-- Use meaningful constant names (FIZZ_DIVISOR, BUZZ_DIVISOR)
-- Implement proper error handling
-- Follow consistent indentation and formatting
-- Add descriptive comments for complex logic
-
-### Documentation Standards
-- Include setup instructions with system requirements
-- Provide visual guides with screenshots
-- Document mode changes and their implications
-- Maintain bilingual content (Japanese primary, English secondary)
-
-### AI Tool Usage
-- Always review AI-generated code before acceptance
-- Use plan mode for complex changes
-- Leverage constants for maintainable code
-- Follow security best practices for AI tools
-
-## Claude Code Memory Configuration
-
-This project supports Claude Code's memory system through the following files:
-
-- **Project Memory**: `./CLAUDE.md` (this file) - Project-specific settings and guidelines
-- **User Memory**: `~/.claude/CLAUDE.md` - Personal settings across all projects
-- **Local Memory**: `./CLAUDE.local.md` - Individual project preferences (if needed)
-
-## Security Considerations
-
-### AI Tool Safety
-- Always review Claude's responses before executing code
-- Use only with trusted codebases due to prompt injection risks
-- Refer to [Claude Code Security](https://docs.anthropic.com/s/claude-code-security) for detailed guidelines
-
-### Git Practices
-- Keep sensitive information out of version control
-- Use appropriate .gitignore rules
-- Review commits before pushing to remote repositories
-
-## Learning Objectives
-
-### Primary Goals
-1. Master Claude Code setup and configuration
-2. Understand different AI coding assistance modes
-3. Practice refactoring techniques with AI assistance
-4. Explore Model Context Protocol concepts
-5. Document AI-assisted development workflows
-
-### Skills Development
-- AI-assisted coding workflows
-- Documentation-driven development
-- Visual learning material creation
-- Cross-platform development setup
-- Modern PHP development practices
-
-## Resources and References
-
-- [Claude Code Official Documentation](https://claude.ai/claude-code)
-- [Claude Code Security Guidelines](https://docs.anthropic.com/s/claude-code-security)
-- [Claude Code IDE Integrations](https://docs.anthropic.com/s/claude-code-ide-integrations)
-- [Model Context Protocol Documentation](https://docs.anthropic.com/en/docs/claude-code/memory)
-
-## Notes for Claude
-
-- This is a learning-focused project with emphasis on documentation and examples
-- Prefer educational explanations over production-ready implementations
-- Maintain the bilingual documentation style (Japanese primary)
-- Consider the macOS development environment when suggesting tools or commands
-- Respect the existing directory structure and naming conventions
-- Always provide context for changes and learning opportunities
-```
+- **学習を優先**: 本番環境よりも教育的価値を重視
+- **段階的改善**: 基本的な実装から高度な技術への発展を示す
+- **ドキュメント維持**: 既存の詳細なガイドラインを保持
+- **バイリンガル対応**: 日本語主体で英語も併記
+- **ビジュアル重視**: セットアップ過程のスクリーンショットを活用
