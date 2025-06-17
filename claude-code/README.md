@@ -204,7 +204,6 @@ echo fizzbuzz(15); // Output: 1, 2, fizz, 4, buzz, fizz, 7, 8, fizz, buzz, 11, f
 
 ![image4](img/image4.png)
 
-
 こんな感じでclaudeに依頼を出すことで、CLI上でコードのリファクタリングや修正を行うことができます。
 
 ## モードの切り替え
@@ -259,7 +258,6 @@ claude codeのレスポンス
 │   2. No, keep planning                                       │
 │                                                              │
 ```
-
 
 こんな感じで提案してくれるので、「Yes」を選択するとコードが以下のように変更されました。
 
@@ -669,3 +667,60 @@ VS CodeのIDEと連携する際にウィンドウとClaude Codeのターミナ�
 左のウィンドウで元々は`claude`が実行されていたのですが、右のウィンドウで`claude`を実行したことで、左のウィンドウは`disconnected`となり、右のウィンドウで新たに`claude`が実行されました。
 
 ![image6](img/image6.png)
+
+
+## その他Tips
+
+MPCを使う方法などありますが、一旦この記事では取り上げずClaude Codeの基本的な使い方に焦点を当てます。
+
+### 便利なスラッシュコマンド
+
+- `/compact`: 表示を簡潔にする
+- `/help`: ヘルプメニューを表示
+- `/clear`: 画面をクリア
+- `/model`: 使用モデルの確認・変更
+- `/terminal-setup`: ターミナル設定の再実行
+- `/restart`: セッションを再開
+
+### ショートカット
+
+- `?`: ショートカット一覧を表示
+- `shift + tab`: モード切り替え（標準 → auto-accept → plan mode）
+- `shift + enter`: 複数行入力モード
+- `ctrl + c`: 操作の中断
+- `cmd + esc`: VS Codeからの起動
+
+### プロンプトのコツ
+
+- **具体的な指示**: 「この関数を最適化して」よりも「この関数のパフォーマンスを向上させるため、ループ処理を改善してください」
+- **コードの品質指定**: 「可読性を重視して」「メンテナンスしやすいコードで」
+- **制約の明示**: 「既存のインターフェースを変更せずに」「テストを壊さないように」
+
+### 効率的な作業方法
+
+- **Plan Mode活用**: 大きな変更前は必ずplan modeで確認
+- **ファイル単位での作業**: 複数ファイルを同時に変更する場合は、ファイルごとに分けて指示
+- **段階的な変更**: 一度に大きく変更せず、小さな変更を重ねる
+- **バージョン管理**: 重要な変更前は必ずgit commitで保存
+
+### トラブルシューティング
+
+- **応答が遅い場合**: `/restart`でセッションをリセット
+- **VS Code連携エラー**: 他のターミナルでClaude Codeが起動していないか確認
+- **メモリ不足**: `/compact`で表示を簡潔にする
+- **設定リセット**: `~/.claude/`フォルダの設定ファイルを確認
+
+### セキュリティのベストプラクティス
+
+- **コード確認**: AI生成コードは必ず実行前に確認
+- **機密情報**: API キーや機密データを含むファイルでは使用を控える
+- **信頼できるコードベース**: プロンプトインジェクション対策として、信頼できるコードでのみ使用
+- **定期的な更新**: Claude Codeを最新バージョンに保つ
+
+## 参考
+
+- [Claude Code 概要 - Anthropic](https://docs.anthropic.com/ja/docs/claude-code/overview)
+- [Claude Codeを徹底解説してみた（前編） | DevelopersIO](https://dev.classmethod.jp/articles/get-started-claude-code-1/)
+- [Claude Codeを徹底解説してみた（後編） | DevelopersIO](https://dev.classmethod.jp/articles/get-started-claude-code-2nd/)
+- [Claude Code の settings.json は設定した方がいい - じゃあ、おうちで学べる](https://syu-m-5151.hatenablog.com/entry/2025/06/05/134147)
+- [Claude Code の CLAUDE.mdは設定した方がいい - じゃあ、おうちで学べる](https://syu-m-5151.hatenablog.com/entry/2025/06/06/190847)
