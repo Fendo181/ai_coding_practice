@@ -254,11 +254,45 @@ php artisan serve
 
 - ✅ Laravelプロジェクトのセットアップ完了
 - ✅ DDDディレクトリ構造の作成完了
-- ⏸️ Domain層の実装（次のステップ）
-- ⏸️ Application層の実装
-- ⏸️ Infrastructure層の実装
-- ⏸️ Presentation層の実装
-- ⏸️ マイグレーションとシーダー
+- ✅ Domain層の実装完了
+  - ArticleId, ArticleTitle, ArticleContent（バリューオブジェクト）
+  - Article（エンティティ）
+  - ArticleRepositoryInterface（リポジトリインターフェース）
+- ✅ Infrastructure層の実装完了
+  - ArticleModel（Eloquentモデル）
+  - EloquentArticleRepository（リポジトリ実装）
+- ✅ Application層の実装完了
+  - CreateArticleUseCase, GetArticleUseCase, ListArticlesUseCase
+  - UpdateArticleUseCase, DeleteArticleUseCase
+- ✅ Presentation層の実装完了
+  - ArticleController（コントローラー）
+  - APIルーティング（/api/v1/articles）
+- ✅ マイグレーションファイル作成完了
+- ✅ DIコンテナ設定完了（AppServiceProvider）
+
+## セットアップ手順
+
+```bash
+# データベースのセットアップ（SQLiteの場合）
+touch database/database.sqlite
+
+# .envファイルでDB設定を変更
+# DB_CONNECTION=sqlite
+
+# マイグレーション実行
+php artisan migrate
+
+# 開発サーバー起動
+php artisan serve
+```
+
+## APIエンドポイント
+
+- `GET /api/v1/articles` - 記事一覧取得
+- `GET /api/v1/articles/{id}` - 記事詳細取得
+- `POST /api/v1/articles` - 記事作成
+- `PUT /api/v1/articles/{id}` - 記事更新
+- `DELETE /api/v1/articles/{id}` - 記事削除
 
 ## 参考資料
 
