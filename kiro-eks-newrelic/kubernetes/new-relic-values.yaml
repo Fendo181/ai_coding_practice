@@ -1,0 +1,45 @@
+# New Relic Kubernetes Integration Helm Values
+# このファイルは、New Relic Kubernetes Integrationをインストールする際に使用します
+
+global:
+  # New Relic License Key
+  # 注意: 本番環境ではシークレットから取得することを推奨
+  licenseKey: ""  # YOUR_NEW_RELIC_LICENSE_KEY を設定してください
+  
+  # クラスタ名
+  cluster: "kiro-eks-cluster"
+
+# New Relic Infrastructure
+newrelic-infrastructure:
+  enabled: true
+  privileged: true
+  
+  # ホストモニタリング
+  hostMonitoring: true
+
+# Kube State Metrics
+nri-kube-events:
+  enabled: true
+  integration:
+    enabled: true
+
+# Prometheus
+prometheus:
+  enabled: true
+
+# Logging
+newrelic-logging:
+  enabled: false  # 必要に応じて有効化
+
+# Pixie (オプション)
+newrelic-pixie:
+  enabled: false  # 必要に応じて有効化
+
+# リソース制限
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
