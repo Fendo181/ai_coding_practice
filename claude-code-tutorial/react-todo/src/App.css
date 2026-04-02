@@ -149,6 +149,41 @@ h1 {
   color: #94a3b8;
 }
 
+.todo-item .edit-btn {
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.todo-item:hover .edit-btn {
+  opacity: 1;
+}
+
+.todo-item .save-btn {
+  background: none;
+  border: none;
+  color: #22c55e;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.todo-item .save-btn:hover {
+  color: #16a34a;
+}
+
 .todo-item .delete-btn {
   background: none;
   border: none;
@@ -164,6 +199,22 @@ h1 {
 
 .todo-item .delete-btn:hover {
   color: #ef4444;
+}
+
+.todo-item .edit-input {
+  flex: 1;
+  font-size: 1rem;
+  padding: 4px 8px;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  outline: none;
+  color: #1a1a2e;
+  background: #f8f9ff;
+}
+
+.todo-item.editing {
+  background: #f8f9ff;
+  box-shadow: 0 0 0 2px #667eea40;
 }
 
 /* --- Footer --- */
